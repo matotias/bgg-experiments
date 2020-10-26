@@ -1,3 +1,3 @@
-from . import total_pages
+from . import total_pages, usernames
 
-__all__ = ['total_pages']
+__all__ = ['total_pages', 'usernames']
