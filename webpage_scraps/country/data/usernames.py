@@ -8,7 +8,7 @@ def get_username_list(country_soup: BeautifulSoup) -> List[BeautifulSoup]:
 
 
 def clean_username_text(user_text: str) -> str:
-    return re.findall(r'\((.*)\)', user_text)[0].strip()
+    return re.findall(r'\((.*)\)', user_text)[0]
 
 
 def get_usernames(country_soup: BeautifulSoup) -> List[str]:
