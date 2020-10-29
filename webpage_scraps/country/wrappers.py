@@ -20,11 +20,11 @@ def get_total_pages_for_country(country_name: str) -> int:
 
 
 # TODO: add generator types
-def get_usernames_for_country(country_name: str) -> Generator:
+def get_usernames_for_country(country_name: str, starting_page: int = 1) -> Generator:
     request_parameters = read_json_file('request_parameters.json')
     total_pages = get_total_pages_for_country(country_name)
     logger.info(f'found {total_pages} pages')
-    for page in range(1, total_pages + 1):
+    for page in range(starting_page, total_pages + 1):
         yield slow_get_usernames_in_page(page, country_name, request_parameters)
 
 
