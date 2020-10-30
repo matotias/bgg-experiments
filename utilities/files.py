@@ -19,3 +19,7 @@ def read_json_files(path: str) -> Dict[str, Dict[str, str]]:
 
 def read_json_file(path: str) -> Dict[str, str]:
     return json.loads(open(str(Path(path)), 'r').read())
+
+
+def read_file(path: str) -> str:
+    return open(str(Path(path)), 'r').read()
