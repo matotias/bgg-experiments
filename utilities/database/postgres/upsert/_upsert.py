@@ -6,13 +6,18 @@ from .queries import base_upsert_query
 from string import Template
 from typing import Dict, List, Any
 from copy import deepcopy
+import logging
 
 
-def upsert_data(data: List[Dict[str, Any]], schema: str, table: str, credentials: Dict[str, str]) -> None:
-    table_columns = get_table_columns(schema, table, credentials)
+# TODO: instead of expecting all columns and excluding a few add the option to only write on the ones provided
+def upsert_data(data: List[Dict[str, Any]], schema: str, table: str, credentials: Dict[str, str],
+                excluded_columns: List[str] = ()) -> None:
+    table_columns = filter_list(get_table_columns(schema, table, credentials), excluded_columns)
     query = _generate_upsert_query(schema, table, credentials, table_columns)
-    template = _generate_values_template(get_table_columns(schema, table, credentials))
+    template = _generate_values_template(table_columns)
     transformed_data = [add_missing_keys(row, table_columns) for row in data]
+    logging.info('running the following query:')
+    logging.info(query)
     load_data(credentials, query, transformed_data, template)
 
 
@@ -59,3 +64,7 @@ def load_data(credentials: Dict[str, str], query: str, data: List[Dict[str, Any]
     cursor = connection.cursor()
     execute_values(cursor, query, data, template=template)
     connection.commit()
+
+
+def filter_list(a_list: List[str], excluded: List[str]):
+    return list(filter(lambda x: x not in excluded, a_list))
