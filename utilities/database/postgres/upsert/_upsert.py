@@ -16,8 +16,8 @@ def upsert_data(data: List[Dict[str, Any]], schema: str, table: str, credentials
     query = _generate_upsert_query(schema, table, credentials, table_columns)
     template = _generate_values_template(table_columns)
     transformed_data = [add_missing_keys(row, table_columns) for row in data]
-    logging.info('running the following query:')
-    logging.info(query)
+    logging.debug('running the following query:')
+    logging.debug(query)
     load_data(credentials, query, transformed_data, template)
 
 
@@ -42,7 +42,7 @@ def _generate_insert_string(columns: List[str]) -> str:
 
 # TODO: add option to pass reserved columns
 def _generate_values_template(columns: List[str]) -> str:
-    return ', '.join([f'%({column})s' for column in columns])
+    return f"({', '.join([f'%({column})s' for column in columns])})"
 
 
 # TODO: add option to pass reserved columns
