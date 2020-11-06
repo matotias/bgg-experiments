@@ -22,7 +22,7 @@ def get_user(username: str) -> User:
 def get_users(usernames: List[Dict[str, str]]) -> List[Dict[str, Any]]:
     return [map_user(get_user(username['username'])) for username in usernames]
 
-    
+
 def map_user(user: User) -> Dict[str, Any]:
     return {
         'id': user.id,
