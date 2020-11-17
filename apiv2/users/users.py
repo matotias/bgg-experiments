@@ -3,11 +3,12 @@ import logging
 import time
 from typing import Dict, Any, List
 from boardgamegeek.objects.user import User
-from users import bgg
+from boardgamegeek import BGGClient
 
 
 def get_user(username: str) -> User:
     logging.info(f'fetching data from user {username} from bgg')
+    bgg = BGGClient()
     for n in range(0, 8):
         try:
             user_data = bgg.user(username)

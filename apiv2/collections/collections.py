@@ -1,12 +1,12 @@
 from boardgamegeek.objects.games import BoardGame
 from typing import List, Dict, Generator
 from boardgamegeek import BGGClient
-from users import bgg
 import logging
 import time
 
 
 def get_collection(username: str) -> BGGClient.collection:
+    bgg = BGGClient()
     for n in range(0, 8):
         try:
             return bgg.collection(username)
@@ -22,7 +22,7 @@ def get_collections(users: List[Dict[str, str]]) -> Generator:
         collection = get_collection(user['name'])
         logging.info(f'received {len(collection.items)} boardgames')
         logging.info(f'transforming data to load it to db')
-        yield [map_collection_board_game(board_game) for board_game in collection]
+        yield [map_collection_board_game(user, board_game) for board_game in collection]
 
 
 def map_collection_board_game(user: Dict[str, str], board_game: BoardGame) -> Dict[str, str]:
