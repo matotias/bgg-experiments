@@ -32,8 +32,8 @@ def slow_get_usernames_in_page(
         page: int,
         country_name: str,
         request_parameters,
-        min_wait: int = 5,
-        max_wait: int = 10
+        min_wait: int = 1,
+        max_wait: int = 6
 ) -> List[str]:
     usernames = get_usernames_in_page(country_name, page, request_parameters)
     logger.info(f'received {len(usernames)} usernames')
