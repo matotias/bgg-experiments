@@ -1,6 +1,6 @@
 from string import Template
 from typing import Dict
-from utilities.database.postgres.common.queries import index_query
+from .queries import index_query
 from utilities.database.postgres import extract
 
 
