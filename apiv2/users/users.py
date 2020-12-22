@@ -36,5 +36,6 @@ def map_user(user: User) -> Dict[str, Any]:
         'guilds': [json.dumps({'id': guild.id, 'name': guild.name}) for guild in user.guilds],
         'homepage': user.homepage,
         'hot10': [json.dumps({'id': hot.id, 'name': hot.name}) for hot in user.hot10],
-        'last_login': user.last_login
+        'last_login': user.last_login,
+        'year_registered': user._data.get('yearregistered')
     }
