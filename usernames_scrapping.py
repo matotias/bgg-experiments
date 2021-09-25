@@ -35,4 +35,4 @@ def write_usernames_to_db(country_name: str, credentials: Dict[str, str], starti
         insert_users_to_db(credentials, username_chunk, country_name)
 
 
-write_usernames_to_db('Spain', read_json_file('./config.json'))
+write_usernames_to_db('Chile', read_json_file('./config.json'))

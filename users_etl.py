@@ -11,7 +11,13 @@ import logging
 logging.basicConfig(format='%(asctime)s [%(levelname)s]: %(message)s', level=logging.DEBUG)
 logger = logging.getLogger('bgg-exp')
 credentials = read_json_file('./config.json')
-usernames_query = "select username from scraps.users where country='Peru'"
+usernames_query = """
+select su.username
+from scraps.users su
+left join boardgamegeek.users bu on bu.name = su.username
+where su.country = 'Colombia'
+and bu.year_registered is null
+"""
 usernames = extract.using_query(credentials, usernames_query)
 username_chunks = to_chunks(usernames, 100)
 bgg = BGGClient()
