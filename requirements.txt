@@ -1,3 +1,6 @@
 beautifulsoup4==4.9.3
 requests==2.24.0
 boardgamegeek2
+psycopg2-binary
+requests-cache==0.5.2
+sqlalchemy-bigquery
