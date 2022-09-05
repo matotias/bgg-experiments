@@ -20,24 +20,24 @@ def get_total_pages_for_country(country_name: str) -> int:
 
 
 # TODO: add generator types
-def get_usernames_for_country(country_name: str, starting_page: int = 1) -> Generator:
+def get_usernames_for_country(country_name: str, starting_page: int = 1, min_wait: float = 1, max_wait: float = float) -> Generator:
     request_parameters = read_json_file('request_parameters.json')
     total_pages = get_total_pages_for_country(country_name)
     logger.info(f'found {total_pages} pages')
     for page in range(starting_page, total_pages + 1):
-        yield slow_get_usernames_in_page(page, country_name, request_parameters)
+        yield slow_get_usernames_in_page(page, country_name, request_parameters, min_wait, max_wait)
 
 
 def slow_get_usernames_in_page(
         page: int,
         country_name: str,
         request_parameters,
-        min_wait: int = 1,
-        max_wait: int = 6
+        min_wait: float = 1,
+        max_wait: float = 2
 ) -> List[str]:
     usernames = get_usernames_in_page(country_name, page, request_parameters)
     logger.info(f'received {len(usernames)} usernames')
-    wait = randint(min_wait, max_wait)
+    wait = uniform(min_wait, max_wait)
     logger.info(f'waiting {wait} seconds before continuing')
     sleep(wait)
     return usernames
