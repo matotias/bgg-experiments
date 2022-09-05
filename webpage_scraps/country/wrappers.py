@@ -5,7 +5,7 @@ from .data.total_pages import get_total_pages
 from .data.usernames import get_usernames
 from typing import List, Generator
 from time import sleep
-from random import randint
+from random import uniform
 import logging
 
 
